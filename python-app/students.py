@@ -29,5 +29,9 @@ def get_student(conn, student_id):
 
 
 def average_grade(conn):
-    # À écrire à l'exercice 2
-    raise NotImplementedError
+    with conn.cursor() as cur:
+        cur.execute("SELECT AVG(grade) FROM students")
+        result = cur.fetchone()[0]
+    if result is None:  # table vide
+        return None
+    return float(result)
